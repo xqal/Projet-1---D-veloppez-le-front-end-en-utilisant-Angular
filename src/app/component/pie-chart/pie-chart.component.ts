@@ -3,6 +3,8 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 import { OlympicCountry } from 'src/app/core/models/Olympic';
 import { Subscription } from 'rxjs';
 
+import { Router } from '@angular/router';
+
 import { Chart, ChartConfiguration, registerables } from 'chart.js/auto';
 Chart.register(...registerables);
 
@@ -20,7 +22,7 @@ export class PieChartComponent implements OnInit, OnDestroy {
   private subscription! : Subscription;
   private chart?: Chart<'pie', number[], string>;
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
     this.subscription = this.olympicService.getOlympics().subscribe((data: OlympicCountry[]) => {
@@ -31,6 +33,7 @@ export class PieChartComponent implements OnInit, OnDestroy {
       */
 
       this.numberOfCountries = data.length;
+      console.log(this.numberOfCountries);
       //  NOMBRE D'EDITION ????
       this.numberOfJOS = data[0].participations.length;
     
@@ -40,7 +43,7 @@ export class PieChartComponent implements OnInit, OnDestroy {
     const ParticipationList = data.map((country: OlympicCountry) => country.participations.length);
     //console.log(ParticipationList);
     const totalParticipation = ParticipationList.reduce((a, b) => a + b, 0);
-    //console.log(totalParticipation);
+    console.log(totalParticipation);
 
     // 1ERE METHODE AVEC REDUCE (CALCULER LE NOMBRE DE MEDAILS TOTAL PAR PAYS)
     const medalsByCountry = data.map((country: OlympicCountry) => country.participations.reduce((total, participation) => total + participation.medalsCount, 0));
@@ -73,6 +76,16 @@ export class PieChartComponent implements OnInit, OnDestroy {
         },
         options: {
           responsive: true,
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              console.log("Je suis elements :" + elements);
+              const index = elements[0].index;
+              console.log("Je suis index :" + index);
+              const countryName = data[index].country;
+              console.log("Je suis countryName :" + countryName);
+              this.router.navigate(['/detail-chart', countryName]);
+            }
+          },
           plugins: {
             legend: {
               position: 'top',

@@ -15,7 +15,7 @@ const routes: Routes = [
     component: PieChartComponent,
   },
   {
-    path: 'detail-chart',
+    path: 'detail-chart/:country',
     component: LineChartComponent,
   },
   {
