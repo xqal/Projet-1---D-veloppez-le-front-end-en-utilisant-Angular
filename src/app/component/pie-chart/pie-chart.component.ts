@@ -41,9 +41,8 @@ export class PieChartComponent implements OnInit, OnDestroy {
     const CountriesList = data.map((country: OlympicCountry) => country.country);
     //console.log(CountriesList);
     const ParticipationList = data.map((country: OlympicCountry) => country.participations.length);
-    //console.log(ParticipationList);
     const totalParticipation = ParticipationList.reduce((a, b) => a + b, 0);
-    console.log(totalParticipation);
+    //console.log(totalParticipation);
 
     // 1ERE METHODE AVEC REDUCE (CALCULER LE NOMBRE DE MEDAILS TOTAL PAR PAYS)
     const medalsByCountry = data.map((country: OlympicCountry) => country.participations.reduce((total, participation) => total + participation.medalsCount, 0));
@@ -78,11 +77,8 @@ export class PieChartComponent implements OnInit, OnDestroy {
           responsive: true,
           onClick: (event, elements) => {
             if (elements.length > 0) {
-              console.log("Je suis elements :" + elements);
               const index = elements[0].index;
-              console.log("Je suis index :" + index);
               const countryName = data[index].country;
-              console.log("Je suis countryName :" + countryName);
               this.router.navigate(['/detail-chart', countryName]);
             }
           },

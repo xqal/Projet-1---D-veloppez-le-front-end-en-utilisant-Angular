@@ -7,20 +7,20 @@
     <div class="dashboard">
         <button routerLink="/dashboard">retour</button>
         <div class="title">
-            <h2> Name of the country : </h2>
+            <h2> Name of the country : {{ countryName }}</h2>
         </div>
         <div class="row">
             <div class="zone">
                 <h3>Number of entries</h3>
-                <p>10</p>
+                <p>{{ numberOfEntries }}</p>
             </div>
             <div class="zone">
                 <h3>Total number medals</h3>
-                <p>10</p>
+                <p>{{ numberOfMedals }}</p>
             </div>
             <div class="zone">
                 <h3>Total number of athletes</h3>
-                <p>10</p>
+                <p>{{ numberOfAthletes }}</p>
             </div>
         </div>
         <div class="line-chart">
