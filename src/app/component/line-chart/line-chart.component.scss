@@ -1,0 +1,76 @@
+.dashboard {
+    font-family: 'Montserrat';
+    width: 40%;
+    margin: auto;
+    border: 3px solid #04838f;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+}
+.dashboard h2 {
+    margin-left: 220px;
+    margin-right: 220px;
+    font-size: 26px;
+    text-align: center;
+    color: #fff;
+    background-color: #04838f;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.zone {
+    width: 24%;
+    text-align: center;
+    border: 2px solid #04838f;
+    border-radius: 15px;
+}
+
+.zone h3 {
+font-weight: 400;
+    font-size: 22px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.zone p {
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 0px;
+}
+
+.pie-chart {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.pie-chart canvas {
+    max-width: 450px;
+    max-height: 450px;
+}
+
+button {
+    background-color: #04838f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #036b75;
+}

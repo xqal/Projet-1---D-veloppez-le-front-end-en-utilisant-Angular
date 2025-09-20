@@ -1,0 +1,26 @@
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <h2> Medals per Country</h2>
+        <div class="row">
+            <div class="zone">
+                <h3>Number of JOs</h3>
+                <p>{{ numberOfJOS }}</p>
+            </div>
+            <div class="zone">
+                <h3>Number of countries</h3>
+                <p>{{ numberOfCountries }}</p>
+            </div>
+        </div>
+        <div class="pie-chart">
+            <canvas #pieCanvas></canvas>
+        </div>
+        <button routerLink="/detail-chart">page detail</button>
+    </div>
+</body>
+
