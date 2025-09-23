@@ -8,10 +8,6 @@ import { LineChartComponent } from './component/line-chart/line-chart.component'
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-  },
-  {
-    path: 'dashboard',
     component: PieChartComponent,
   },
   {
