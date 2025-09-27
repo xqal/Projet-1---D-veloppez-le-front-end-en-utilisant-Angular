@@ -18,53 +18,28 @@ export class PieChartComponent implements OnInit, OnDestroy {
 
   numberOfJOS!: number;
   numberOfCountries!: number;
-  
+
   private subscription! : Subscription;
   private chart?: Chart<'pie', number[], string>;
 
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
+
     this.subscription = this.olympicService.getOlympics().subscribe((data: OlympicCountry[]) => {
-      /*
-      console.log(data);
-      console.log(data.length); // NOMBRE DE PAYS
-      console.log(data[0].participations.length); // NOMBRE DE PARTICIPATION/EDITION
-      */
+      if (!data) {
+        return;
+      }
 
       this.numberOfCountries = data.length;
-      console.log(this.numberOfCountries);
-      //  NOMBRE D'EDITION ????
       this.numberOfJOS = data[0].participations.length;
     
     // DONNEES DU GRAPHIQUE
     const CountriesList = data.map((country: OlympicCountry) => country.country);
-    //console.log(CountriesList);
-    const ParticipationList = data.map((country: OlympicCountry) => country.participations.length);
-    const totalParticipation = ParticipationList.reduce((a, b) => a + b, 0);
-    //console.log(totalParticipation);
-
-    // 1ERE METHODE AVEC REDUCE (CALCULER LE NOMBRE DE MEDAILS TOTAL PAR PAYS)
     const medalsByCountry = data.map((country: OlympicCountry) => country.participations.reduce((total, participation) => total + participation.medalsCount, 0));
-    //console.log(medalsByCountry);
 
-    /*
-    2 EME METHODE PARCOURS AVEC BOUCLE PUIS ADDITIONN DES MEDAILS (CALCULER LE NOMBRE DE MEDAILS TOTAL PAR PAYS)
-    const medalsByCountryAlt: number[] = [];
-    for (let i = 0; i < data.length; i++) {
-      const country = data[i];
-      let totalMedals = 0;
-      for (let j = 0; j < country.participations.length; j++) {
-        const participation = country.participations[j];
-        totalMedals = totalMedals + participation.medalsCount;
-      }
-      
-      medalsByCountryAlt.push(totalMedals);
-    }
-    console.log(medalsByCountryAlt);
-    */
-
-    const config: ChartConfiguration<'pie', number[], string> ={
+    // CONFIGURATION DU GRAPHIQUE
+    const config : ChartConfiguration<'pie', number[], string> = {
         type: 'pie',
         data: {
           labels: CountriesList,

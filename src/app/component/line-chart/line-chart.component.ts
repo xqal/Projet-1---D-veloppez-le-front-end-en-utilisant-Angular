@@ -51,11 +51,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
    
         return;
       }
-      //TEST NGIF
-      if (countryName==="Italy") {
-        this.showCanvas = false;
-        return;
-      }
 
       this.countryName = this.selectedCountry.country;
       this.numberOfEntries = this.selectedCountry.participations.length;
@@ -136,8 +131,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
           }
         }
       };
-      
-      // this.chart = new Chart(this.lineCanvas.nativeElement.getContext('2d')!, config);
     });
 
   }
