@@ -14,12 +14,15 @@ Chart.register(...registerables);
   styleUrl: './line-chart.component.scss'
 })
 export class LineChartComponent implements OnInit, OnDestroy {
-  @ViewChild('lineCanvas', { static: true }) lineCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('lineCanvas', { static: false }) lineCanvas!: ElementRef<HTMLCanvasElement>;
 
   countryName!: string;
   numberOfEntries!: number;
   numberOfMedals!: number;
   numberOfAthletes!: number;
+
+  config!: ChartConfiguration<'line', number[], string>;
+  showCanvas!: boolean;
   
   private subscription!: Subscription;
   private chart?: Chart<'line', number[], string>;
@@ -33,6 +36,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
     //RECUPERE LE PAYS SELECTIONNER
     const countryName = this.route.snapshot.params['country'];
     this.subscription = this.olympicService.getOlympics().subscribe((data: OlympicCountry[]) => {
+      if (!data) {
+        return;
+      }
+
       this.selectedCountry = data.find(country => country.country === countryName);
 
       if (!this.selectedCountry) {
@@ -40,6 +47,13 @@ export class LineChartComponent implements OnInit, OnDestroy {
         this.numberOfEntries = 0;
         this.numberOfMedals = 0;
         this.numberOfAthletes = 0;
+        this.showCanvas = false;
+   
+        return;
+      }
+      //TEST NGIF
+      if (countryName==="Italy") {
+        this.showCanvas = false;
         return;
       }
 
@@ -53,7 +67,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
       console.log(yearList);
       const medalsPerYear = this.selectedCountry.participations.map(p => p.medalsCount);
 
-      const config: ChartConfiguration<'line', number[], string> = {
+      this.showCanvas = true;
+
+      this.config = {
         type: 'line',
         data: {
           labels: yearList,
@@ -120,10 +136,16 @@ export class LineChartComponent implements OnInit, OnDestroy {
           }
         }
       };
-
-      this.chart = new Chart(this.lineCanvas.nativeElement.getContext('2d')!, config);
+      
+      // this.chart = new Chart(this.lineCanvas.nativeElement.getContext('2d')!, config);
     });
 
+  }
+
+  ngAfterViewInit(): void {
+    if (this.showCanvas && this.lineCanvas && this.config) {
+      this.chart = new Chart(this.lineCanvas.nativeElement.getContext('2d')!, this.config);
+    }
   }
 
   ngOnDestroy(): void {

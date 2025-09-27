@@ -23,7 +23,8 @@
                 <p>{{ numberOfAthletes }}</p>
             </div>
         </div>
-        <div class="line-chart">
+
+        <div class="line-chart" *ngIf="showCanvas">
             <canvas #lineCanvas></canvas>
         </div>
     </div>
