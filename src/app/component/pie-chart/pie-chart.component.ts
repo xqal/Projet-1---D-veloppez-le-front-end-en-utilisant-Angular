@@ -26,7 +26,7 @@ export class PieChartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.subscription = this.olympicService.getOlympics().subscribe((data: OlympicCountry[]) => {
+    this.subscription = this.olympicService.getOlympics().subscribe((data: OlympicCountry[] | undefined) => {
       if (!data) {
         return;
       }

@@ -35,7 +35,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     //RECUPERE LE PAYS SELECTIONNER
     const countryName = this.route.snapshot.params['country'];
-    this.subscription = this.olympicService.getOlympics().subscribe((data: OlympicCountry[]) => {
+    this.subscription = this.olympicService.getOlympics().subscribe((data: OlympicCountry[] | undefined) => {
       if (!data) {
         return;
       }
